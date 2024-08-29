@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  </head>
+  <body>
+    <h1><a href="/">Book Library</a> </h1>
+    
+    <form action="/sort" method="POST">
+      <select id="sort-by" name="sort-by">
+        <option value="">Default</option>
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+      </select>
+      <button type="submit">Sort</button>
+    </form>
+    <form action="/search" method="POST">
+      <input type="text" name="search_query" placeholder="Search for a book">
+      <button type="submit">Search</button>
+   </form>
+   <a href="/add_book">Add Book</a>
+   <a href="/add_author">Add Author</a>
+    <ul style="list-style: none">
+      {% for book in books %}
+      <li>
+        <img
+          src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg"
+          alt="{{ book.title }}"
+        />
+        <h2>{{ book.title }}</h2>
+        <p>By {{ book.author.name }}</p>
+        <form action="/book/{{ book.id }}/delete" method="POST">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
